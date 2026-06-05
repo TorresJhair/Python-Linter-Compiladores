@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case3_sqli_fstring.py",
   "filepath": "/app/samples/case3_sqli_fstring.py",
-  "timestamp": "2026-06-05 04:29:00 UTC",
+  "timestamp": "2026-06-05 04:59:33 UTC",
   "loc": 5,
   "verdict": "VULNERABLE",
   "summary": {
@@ -14,7 +14,7 @@
   },
   "vulnerabilities": [
     {
-      "id": "CVE-SL-002",
+      "id": "CVE-SL-001",
       "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
@@ -65,6 +65,6 @@
       "variables": 5,
       "taint_hops": 5
     },
-    "analysis_time_ms": 11.353634999977658
+    "analysis_time_ms": 0.13347400090424344
   }
 }

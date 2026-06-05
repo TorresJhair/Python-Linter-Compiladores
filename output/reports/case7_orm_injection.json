@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case7_orm_injection.py",
   "filepath": "/app/samples/case7_orm_injection.py",
-  "timestamp": "2026-06-05 04:29:02 UTC",
+  "timestamp": "2026-06-05 04:59:35 UTC",
   "loc": 16,
   "verdict": "VULNERABLE",
   "summary": {
@@ -14,7 +14,7 @@
   },
   "vulnerabilities": [
     {
-      "id": "CVE-SL-002",
+      "id": "CVE-SL-001",
       "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
@@ -65,6 +65,6 @@
       "variables": 11,
       "taint_hops": 11
     },
-    "analysis_time_ms": 14.810730001045158
+    "analysis_time_ms": 0.24817400117171928
   }
 }

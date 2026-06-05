@@ -346,7 +346,7 @@ def assemble_report(
 
     # ── Vulnerability details ─────────────────────────────────────────────────
     vuln_details: List[VulnDetail] = []
-    for i, v in enumerate(result.vulnerabilities, 2):
+    for i, v in enumerate(result.vulnerabilities, 1):
         severity = _severity(cfg, v.line)
 
         src_record = next(

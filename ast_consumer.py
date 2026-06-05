@@ -111,7 +111,13 @@ class ASTConsumer:
 
     def _convert_FunctionDef(self, node: ast.FunctionDef) -> FunctionDef:
         name = node.name
-        params = [self._convert_param(arg) for arg in node.args.args]
+        args = node.args.args
+        defaults = node.args.defaults
+        n_no_default = len(args) - len(defaults)
+        params = []
+        for i, arg in enumerate(args):
+            default = self._convert_expr(defaults[i - n_no_default]) if i >= n_no_default else None
+            params.append(self._convert_param(arg, default=default))
         body = [self._convert_stmt(s) for s in node.body]
         return FunctionDef(name=name, params=params, body=body, line=node.lineno, col=node.col_offset)
 
@@ -132,8 +138,8 @@ class ASTConsumer:
             col=node.col_offset,
         )
 
-    def _convert_param(self, arg: ast.arg) -> Param:
-        return Param(name=arg.arg, default=None, line=arg.lineno, col=arg.col_offset)
+    def _convert_param(self, arg: ast.arg, default=None) -> Param:
+        return Param(name=arg.arg, default=default, line=arg.lineno, col=arg.col_offset)
 
     def _convert_expr(self, node: ast.expr) -> ASTNode:
         """Convierte cualquier expresión al AST del proyecto."""
@@ -145,12 +151,14 @@ class ASTConsumer:
 
     def _generic_convert_expr(self, node: ast.expr) -> ASTNode:
         """Convertidor genérico para expresiones no manejadas explícitamente."""
-        return Name(name=repr(node), line=node.lineno, col=node.col_offset)
+        name = ast.dump(node) if hasattr(node, '_fields') else type(node).__name__
+        return Name(name=name, line=node.lineno, col=node.col_offset)
 
     def _generic_convert(self, node: ast.stmt) -> ASTNode:
         """Convertidor genérico para sentencias no manejadas explícitamente."""
+        name = ast.dump(node) if hasattr(node, '_fields') else type(node).__name__
         return ExprStatement(
-            expression=Name(name=repr(node), line=node.lineno, col=node.col_offset),
+            expression=Name(name=name, line=node.lineno, col=node.col_offset),
             line=node.lineno,
             col=node.col_offset,
         )

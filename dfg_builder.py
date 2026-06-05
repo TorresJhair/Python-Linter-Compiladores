@@ -145,21 +145,6 @@ class DFG:
         self.nodes[name] = node
         return node
 
-    def update_var(self, name: str, t: DFGNodeType,
-                   ast_node: Optional[ASTNode] = None) -> DFGNode:
-        """
-        Crea una nueva versión del nodo de variable (SSA-lite):
-        la versión anterior queda en el grafo; la nueva se almacena
-        bajo el mismo nombre (shadow). Útil para aug-assign.
-        """
-        old = self.nodes.get(name)
-        node = self._mk(name, t, ast_node)
-        # Guardar con sufijo para no perder el nodo anterior
-        key = f"{name}#{node.id}"
-        self.nodes[key] = node
-        self.nodes[name] = node   # nueva versión canónica
-        return node, old
-
     # ── Aristas ───────────────────────────────────────────────────────────────
 
     def add_edge(self, src: DFGNode, dst: DFGNode, label: str = ""):

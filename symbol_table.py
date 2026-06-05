@@ -195,6 +195,9 @@ class SymbolTable:
     # ── Funciones ─────────────────────────────────────────────────────────────
 
     def define_function(self, name: str) -> FunctionSignature:
+        existing = self._functions.get(name)
+        if existing is not None:
+            return existing
         sig = FunctionSignature(name=name)
         self._functions[name] = sig
         return sig

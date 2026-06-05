@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case10_dynamic_columns.py",
   "filepath": "/app/samples/case10_dynamic_columns.py",
-  "timestamp": "2026-06-05 04:29:12 UTC",
+  "timestamp": "2026-06-05 04:59:45 UTC",
   "loc": 25,
   "verdict": "VULNERABLE",
   "summary": {
@@ -14,7 +14,7 @@
   },
   "vulnerabilities": [
     {
-      "id": "CVE-SL-002",
+      "id": "CVE-SL-001",
       "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
@@ -45,7 +45,7 @@
       "remediation_code": "user_id = int(input(\"ID: \"))\nquery = \"SELECT * FROM users WHERE id = ?\"\ncursor.execute(query, (user_id,))"
     },
     {
-      "id": "CVE-SL-003",
+      "id": "CVE-SL-002",
       "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
@@ -103,6 +103,6 @@
       "variables": 18,
       "taint_hops": 17
     },
-    "analysis_time_ms": 41.18067800300196
+    "analysis_time_ms": 0.3171839998685755
   }
 }

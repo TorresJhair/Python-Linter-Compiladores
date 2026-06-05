@@ -19,21 +19,20 @@ Dependencies:
 
 import os
 import json
+import html
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import LETTER
-from reportlab.lib.styles import (
-    getSampleStyleSheet, ParagraphStyle, TA_CENTER, TA_LEFT, TA_JUSTIFY
-)
+from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak,
     Image, HRFlowable
 )
-from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
 
 
 PDF_OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output", "pdf")
@@ -429,11 +428,11 @@ def build_pdf(report: PDFReport, output_path: str):
             story.append(Spacer(1, 10))
             story.append(Paragraph("Remediation:", subsection_style))
 
-            story.append(Paragraph(vuln.remediation, body_style))
+            story.append(Paragraph(html.escape(vuln.remediation), body_style))
             story.append(Spacer(1, 5))
 
             code_lines = vuln.remediation_code.split("\n")
-            code_block = "<br/>".join(line for line in code_lines)
+            code_block = "<br/>".join(html.escape(line) for line in code_lines)
             story.append(
                 Paragraph(
                     f"<font face='Courier' size='8' color='#2c3e50'>{code_block}</font>",
@@ -825,16 +824,16 @@ def generate_metrics_pdf(output_dir: str = None, console=None) -> bool:
                 continue
 
             case_name = cr.get("case", "").replace(".py", "")
-            story.append(Paragraph(f"<b>{case_name}</b>", subsection_style))
+            story.append(Paragraph(f"<b>{html.escape(case_name)}</b>", subsection_style))
 
             for detail in fp_d:
                 story.append(Paragraph(
-                    f'<font color="red">[FP]</font> {detail}',
+                    f'<font color="red">[FP]</font> {html.escape(str(detail))}',
                     ParagraphStyle("Detail", parent=body_style, fontSize=9),
                 ))
             for detail in fn_d:
                 story.append(Paragraph(
-                    f'<font color="red">[FN]</font> {detail}',
+                    f'<font color="red">[FN]</font> {html.escape(str(detail))}',
                     ParagraphStyle("Detail", parent=body_style, fontSize=9),
                 ))
             story.append(Spacer(1, 4))

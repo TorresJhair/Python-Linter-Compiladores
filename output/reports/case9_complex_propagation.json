@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case9_complex_propagation.py",
   "filepath": "/app/samples/case9_complex_propagation.py",
-  "timestamp": "2026-06-05 04:29:09 UTC",
+  "timestamp": "2026-06-05 04:59:41 UTC",
   "loc": 27,
   "verdict": "VULNERABLE",
   "summary": {
@@ -14,7 +14,7 @@
   },
   "vulnerabilities": [
     {
-      "id": "CVE-SL-002",
+      "id": "CVE-SL-001",
       "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
@@ -52,7 +52,7 @@
       "remediation_code": "user_id = int(input(\"ID: \"))\nquery = \"SELECT * FROM users WHERE id = ?\"\ncursor.execute(query, (user_id,))"
     },
     {
-      "id": "CVE-SL-003",
+      "id": "CVE-SL-002",
       "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
@@ -103,6 +103,6 @@
       "variables": 26,
       "taint_hops": 24
     },
-    "analysis_time_ms": 65.6872290019237
+    "analysis_time_ms": 0.668724998831749
   }
 }
