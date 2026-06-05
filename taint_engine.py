@@ -67,6 +67,7 @@ from ast_nodes import (
 )
 from symbol_table import SymbolTable, Symbol, TaintStatus
 from dfg_builder   import DFG, DFGNode, DFGNodeType
+from cfg_builder   import CFG, CFGNodeType
 
 _PYTHON_BUILTINS = {
     "print", "len", "range", "str", "int", "float", "bool", "list", "dict",
@@ -208,6 +209,8 @@ class TaintPropagationEngine:
         self._tainted_node_ids: Set[int] = set()
         # Cache child symbol tables from Phase A for Phase C sink detection
         self._func_tables: Dict[str, SymbolTable] = {}
+        # CFG for reachability verification
+        self._cfg: Optional[CFG] = None
 
     # ─────────────────────────────────────────────────────────────────────────
     # Punto de entrada
@@ -218,6 +221,7 @@ class TaintPropagationEngine:
         module:       Module,
         dfg:          DFG,
         symbol_table: SymbolTable,
+        cfg:          Optional[CFG] = None,
     ) -> TaintPropagationResult:
         """
         Ejecuta el análisis completo de taint.
@@ -227,6 +231,7 @@ class TaintPropagationEngine:
         """
         self._tainted_node_ids = set()
         self._func_tables = {}
+        self._cfg = cfg
         result = TaintPropagationResult()
 
         # ── Phase A: AST pass ─────────────────────────────────────────────────
@@ -544,6 +549,8 @@ class TaintPropagationEngine:
 
         Only the first argument (position 0, the SQL string) is checked.
         Arguments at position 1+ are parameterized query values and are safe.
+        CFG reachability is verified: the sink must be reachable from the
+        ORIGINAL taint source for the vulnerability to be reported.
         """
         if not isinstance(expr, FCall):
             return
@@ -567,6 +574,14 @@ class TaintPropagationEngine:
                         if sym and sym.sources and
                         sym.sources[0].upper() in TaintSource.__members__
                         else TaintSource.UNKNOWN)
+
+            # CFG reachability: verify the sink is reachable from the
+            # ORIGINAL taint source (not the last intermediate assignment).
+            if self._cfg and expr.line > 0:
+                source_line = self._find_original_source_line(path, result)
+                if source_line > 0 and not self._is_sink_reachable(source_line, expr.line):
+                    return  # source cannot reach sink — false positive
+
             result.add_vulnerability(Vulnerability(
                 sink       = func_name,
                 arg_name   = arg_name,
@@ -575,6 +590,65 @@ class TaintPropagationEngine:
                 line       = expr.line,
                 col        = expr.col,
             ))
+
+    def _find_original_source_line(
+        self, path: List[str], result: TaintPropagationResult,
+    ) -> int:
+        """Find the line of the original taint source from the taint path.
+
+        The path is [sink_var, ..., original_source]. We look up the
+        original source (last element) in result.sources to get its line.
+        """
+        if not path:
+            return 0
+        original_source = path[-1]
+        for src_record in result.sources:
+            if src_record.variable == original_source and src_record.line > 0:
+                return src_record.line
+        return 0
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # CFG reachability
+    # ─────────────────────────────────────────────────────────────────────────
+
+    def _is_sink_reachable(self, source_line: int, sink_line: int) -> bool:
+        """True if the sink line is reachable from the source line in the CFG.
+
+        Uses DFS on the CFG to check path existence. If the CFG is not
+        available or lines cannot be mapped, assumes reachable (conservative).
+        """
+        if self._cfg is None:
+            return True
+
+        source_nodes = [
+            n for n in self._cfg.nodes.values()
+            if n.line == source_line
+        ]
+        sink_nodes = [
+            n for n in self._cfg.nodes.values()
+            if n.line == sink_line
+        ]
+
+        if not source_nodes or not sink_nodes:
+            return True  # can't determine — assume reachable
+
+        for src in source_nodes:
+            for snk in sink_nodes:
+                if self._cfg_path_exists(src, snk, set()):
+                    return True
+        return False
+
+    @staticmethod
+    def _cfg_path_exists(start, end, visited) -> bool:
+        """DFS to check if end is reachable from start in the CFG."""
+        if start == end:
+            return True
+        visited.add(start.id)
+        for succ in start.successors:
+            if succ.id not in visited:
+                if TaintPropagationEngine._cfg_path_exists(succ, end, visited):
+                    return True
+        return False
 
     # ─────────────────────────────────────────────────────────────────────────
     # Helpers — expresiones

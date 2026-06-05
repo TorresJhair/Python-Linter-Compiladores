@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case2_sqli_concatenation.py",
   "filepath": "/app/samples/case2_sqli_concatenation.py",
-  "timestamp": "2026-06-05 04:59:32 UTC",
+  "timestamp": "2026-06-05 05:27:46 UTC",
   "loc": 3,
   "verdict": "VULNERABLE",
   "summary": {
@@ -65,6 +65,6 @@
       "variables": 4,
       "taint_hops": 3
     },
-    "analysis_time_ms": 0.18280000222148374
+    "analysis_time_ms": 0.2023739980359096
   }
 }

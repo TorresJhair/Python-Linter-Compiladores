@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case9_complex_propagation.py",
   "filepath": "/app/samples/case9_complex_propagation.py",
-  "timestamp": "2026-06-05 04:59:41 UTC",
+  "timestamp": "2026-06-05 05:27:55 UTC",
   "loc": 27,
   "verdict": "VULNERABLE",
   "summary": {
@@ -103,6 +103,6 @@
       "variables": 26,
       "taint_hops": 24
     },
-    "analysis_time_ms": 0.668724998831749
+    "analysis_time_ms": 0.8145389983837958
   }
 }

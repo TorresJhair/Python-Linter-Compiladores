@@ -141,7 +141,7 @@ def run_case(
     try:
         if dfg:
             taint_start = time.perf_counter()
-            result = taint_engine.analyze(tree, dfg, symbol_table)
+            result = taint_engine.analyze(tree, dfg, symbol_table, cfg=cfg)
             elapsed_ms = (time.perf_counter() - taint_start) * 1000
 
             if result.sources:
