@@ -1,4 +1,0 @@
-program ejemplo1 ;
-begin
-  a := 4
-end.
