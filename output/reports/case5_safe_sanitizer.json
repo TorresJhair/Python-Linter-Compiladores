@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case5_safe_sanitizer.py",
   "filepath": "/app/samples/case5_safe_sanitizer.py",
-  "timestamp": "2026-06-05 03:52:57 UTC",
+  "timestamp": "2026-06-05 04:29:01 UTC",
   "loc": 6,
   "verdict": "SAFE",
   "summary": {
@@ -46,6 +46,6 @@
       "variables": 6,
       "taint_hops": 1
     },
-    "analysis_time_ms": 8.057084000029135
+    "analysis_time_ms": 7.481692999135703
   }
 }

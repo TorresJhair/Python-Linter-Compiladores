@@ -3,19 +3,19 @@
   "engine": "1.0.0",
   "file": "case6_augassign_conditional.py",
   "filepath": "/app/samples/case6_augassign_conditional.py",
-  "timestamp": "2026-06-05 03:52:57 UTC",
+  "timestamp": "2026-06-05 04:29:01 UTC",
   "loc": 4,
   "verdict": "VULNERABLE",
   "summary": {
     "total": 1,
-    "critical": 0,
-    "warning": 1,
+    "critical": 1,
+    "warning": 0,
     "info": 0
   },
   "vulnerabilities": [
     {
       "id": "CVE-SL-002",
-      "severity": "WARNING",
+      "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "db.execute",
       "sink_line": 4,
@@ -72,6 +72,6 @@
       "variables": 6,
       "taint_hops": 3
     },
-    "analysis_time_ms": 7.198675000836374
+    "analysis_time_ms": 8.066673999564955
   }
 }

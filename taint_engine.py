@@ -68,6 +68,18 @@ from ast_nodes import (
 from symbol_table import SymbolTable, Symbol, TaintStatus
 from dfg_builder   import DFG, DFGNode, DFGNodeType
 
+_PYTHON_BUILTINS = {
+    "print", "len", "range", "str", "int", "float", "bool", "list", "dict",
+    "set", "tuple", "type", "repr", "abs", "round", "min", "max", "sum",
+    "sorted", "reversed", "enumerate", "zip", "map", "filter", "any", "all",
+    "open", "hasattr", "getattr", "setattr", "delattr", "isinstance",
+    "issubclass", "callable", "iter", "next", "hash", "id", "hex", "oct",
+    "bin", "chr", "ord", "format", "vars", "dir", "globals", "locals",
+    "super", "object", "staticmethod", "classmethod", "property",
+    "re", "os", "sys", "math", "json", "csv", "datetime", "pathlib",
+    "cursor", "db", "conn", "connection", "session",
+}
+
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Enumeraciones y estructuras de resultado
@@ -435,17 +447,6 @@ class TaintPropagationEngine:
             # 4. Variable sin definición conocida y sin entrantes = externa implícita
             #    (p.ej. user_input usado sin ser definido en el snippet analizado)
             #    Se excluyen builtins de Python para evitar falsos positivos.
-            _PYTHON_BUILTINS = {
-                "print","len","range","str","int","float","bool","list","dict",
-                "set","tuple","type","repr","abs","round","min","max","sum",
-                "sorted","reversed","enumerate","zip","map","filter","any","all",
-                "open","hasattr","getattr","setattr","delattr","isinstance",
-                "issubclass","callable","iter","next","hash","id","hex","oct",
-                "bin","chr","ord","format","vars","dir","globals","locals",
-                "super","object","staticmethod","classmethod","property",
-                "re","os","sys","math","json","csv","datetime","pathlib",
-                "cursor","db","conn","connection","session",  # common DB objects
-            }
             if (node.type == DFGNodeType.VARIABLE
                     and not canonical.startswith("_")
                     and not node.incoming          # sin fuente conocida

@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case10_dynamic_columns.py",
   "filepath": "/app/samples/case10_dynamic_columns.py",
-  "timestamp": "2026-06-05 03:53:08 UTC",
+  "timestamp": "2026-06-05 04:29:12 UTC",
   "loc": 25,
   "verdict": "VULNERABLE",
   "summary": {
@@ -103,6 +103,6 @@
       "variables": 18,
       "taint_hops": 17
     },
-    "analysis_time_ms": 25.87255999969784
+    "analysis_time_ms": 41.18067800300196
   }
 }

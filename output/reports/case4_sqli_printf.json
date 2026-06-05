@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case4_sqli_printf.py",
   "filepath": "/app/samples/case4_sqli_printf.py",
-  "timestamp": "2026-06-05 03:52:56 UTC",
+  "timestamp": "2026-06-05 04:29:00 UTC",
   "loc": 3,
   "verdict": "VULNERABLE",
   "summary": {
@@ -65,6 +65,6 @@
       "variables": 5,
       "taint_hops": 5
     },
-    "analysis_time_ms": 4.932486997859087
+    "analysis_time_ms": 9.440916997846216
   }
 }

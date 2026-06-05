@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case7_orm_injection.py",
   "filepath": "/app/samples/case7_orm_injection.py",
-  "timestamp": "2026-06-05 03:52:58 UTC",
+  "timestamp": "2026-06-05 04:29:02 UTC",
   "loc": 16,
   "verdict": "VULNERABLE",
   "summary": {
@@ -65,6 +65,6 @@
       "variables": 11,
       "taint_hops": 11
     },
-    "analysis_time_ms": 18.719581999903312
+    "analysis_time_ms": 14.810730001045158
   }
 }
