@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case8_safe_orm.py",
   "filepath": "/app/samples/case8_safe_orm.py",
-  "timestamp": "2026-05-22 17:49:23 UTC",
+  "timestamp": "2026-06-05 03:52:59 UTC",
   "loc": 55,
   "verdict": "SAFE (no SQL sink)",
   "summary": {
@@ -68,6 +68,6 @@
       "variables": 31,
       "taint_hops": 30
     },
-    "analysis_time_ms": 146.75721699995847
+    "analysis_time_ms": 48.82270400048583
   }
 }

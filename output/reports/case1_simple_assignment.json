@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case1_simple_assignment.py",
   "filepath": "/app/samples/case1_simple_assignment.py",
-  "timestamp": "2026-05-22 17:49:13 UTC",
+  "timestamp": "2026-06-05 03:52:55 UTC",
   "loc": 3,
   "verdict": "SAFE (no SQL sink)",
   "summary": {
@@ -33,6 +33,6 @@
       "variables": 3,
       "taint_hops": 0
     },
-    "analysis_time_ms": 13.01695000000791
+    "analysis_time_ms": 6.225178000022424
   }
 }
