@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case7_orm_injection.py",
   "filepath": "/app/samples/case7_orm_injection.py",
-  "timestamp": "2026-06-05 05:27:49 UTC",
+  "timestamp": "2026-07-23 20:06:42 UTC",
   "loc": 16,
   "verdict": "VULNERABLE",
   "summary": {
@@ -18,7 +18,7 @@
       "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
-      "sink_line": 21,
+      "sink_line": 20,
       "sink_col": 9,
       "sink_expr": "result = cursor.execute(query)",
       "arg": "query",
@@ -36,7 +36,7 @@
         {
           "step": 2,
           "role": "SINK",
-          "line": 21,
+          "line": 20,
           "col": 9,
           "expr": "result = cursor.execute(query)"
         }
@@ -65,6 +65,6 @@
       "variables": 11,
       "taint_hops": 11
     },
-    "analysis_time_ms": 0.23077299920259975
+    "analysis_time_ms": 0.6368819999806874
   }
 }

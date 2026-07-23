@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case6_augassign_conditional.py",
   "filepath": "/app/samples/case6_augassign_conditional.py",
-  "timestamp": "2026-06-05 05:27:48 UTC",
+  "timestamp": "2026-07-23 20:06:41 UTC",
   "loc": 4,
   "verdict": "VULNERABLE",
   "summary": {
@@ -72,6 +72,6 @@
       "variables": 6,
       "taint_hops": 3
     },
-    "analysis_time_ms": 0.07428500248352066
+    "analysis_time_ms": 0.13911299993196735
   }
 }
