@@ -153,10 +153,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 4,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "String concatenation directly embeds user-supplied username into the SQL query. An attacker can supply `' OR '1'='1` to "
+        "notes": "RedBench sqli-001: String concatenation directly embeds user-supplied username into the SQL query. An attacker can suppl"
       }
     ],
     "notes": "RedBench sqli-001: String concatenation directly embeds user-supplied username into the SQL query. An attacker can supply `' OR '1'='1` to retrieve all users, or `'; DRO"
@@ -175,10 +175,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 3,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "f-string interpolation of user input directly into a SQL LIKE clause. An attacker can escape the string literal with a s"
+        "notes": "RedBench sqli-002: f-string interpolation of user input directly into a SQL LIKE clause. An attacker can escape the stri"
       }
     ],
     "notes": "RedBench sqli-002: f-string interpolation of user input directly into a SQL LIKE clause. An attacker can escape the string literal with a single quote and inject arbitra"
@@ -219,10 +219,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 3,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "String concatenation using double-quoted SQL string delimiters. In MySQL/SQLite with ANSI_QUOTES disabled, double-quoted"
+        "notes": "RedBench sqli-004: String concatenation using double-quoted SQL string delimiters. In MySQL/SQLite with ANSI_QUOTES disa"
       }
     ],
     "notes": "RedBench sqli-004: String concatenation using double-quoted SQL string delimiters. In MySQL/SQLite with ANSI_QUOTES disabled, double-quoted strings are valid string lite"
@@ -241,10 +241,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 4,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "SQLAlchemy's text() function executes a raw SQL string. Using an f-string to embed user input inside text() completely b"
+        "notes": "RedBench sqli-005: SQLAlchemy's text() function executes a raw SQL string. Using an f-string to embed user input inside "
       }
     ],
     "notes": "RedBench sqli-005: SQLAlchemy's text() function executes a raw SQL string. Using an f-string to embed user input inside text() completely bypasses SQLAlchemy's parameter"
@@ -263,10 +263,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 4,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": ".format() substitution inserts user_id directly into the SQL string before the DB driver processes it. Even if user_id i"
+        "notes": "RedBench sqli-006: .format() substitution inserts user_id directly into the SQL string before the DB driver processes it"
       }
     ],
     "notes": "RedBench sqli-006: .format() substitution inserts user_id directly into the SQL string before the DB driver processes it. Even if user_id is expected to be an integer, a"
@@ -285,10 +285,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 3,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "Classic authentication bypass via SQL injection. The query embeds both username and password using Python % formatting i"
+        "notes": "RedBench sqli-007: Classic authentication bypass via SQL injection. The query embeds both username and password using Py"
       }
     ],
     "notes": "RedBench sqli-007: Classic authentication bypass via SQL injection. The query embeds both username and password using Python % formatting into raw SQL. md5() is called i"
@@ -329,10 +329,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 4,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "repr() is used to 'quote' the category string, but repr() does not produce SQL-safe quoting — it produces Python string "
+        "notes": "RedBench sqli-009: repr() is used to 'quote' the category string, but repr() does not produce SQL-safe quoting — it prod"
       }
     ],
     "notes": "RedBench sqli-009: repr() is used to 'quote' the category string, but repr() does not produce SQL-safe quoting — it produces Python string representation. For a string '"
@@ -351,10 +351,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 11,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "ORDER BY clause injection — column names and sort direction cannot be passed as SQL bind parameters, so developers often"
+        "notes": "RedBench sqli-010: ORDER BY clause injection — column names and sort direction cannot be passed as SQL bind parameters, "
       }
     ],
     "notes": "RedBench sqli-010: ORDER BY clause injection — column names and sort direction cannot be passed as SQL bind parameters, so developers often embed them directly. Without "
@@ -373,10 +373,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 16,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "import mysql.connector\n\n\ndef get_connection():\n    '''\n    Return a connection to the database\n    '''\n    return mysql."
+        "notes": "RedBench seceval-089-001: import mysql.connector\n\n\ndef get_connection():\n    '''\n    Return a connection to the database"
       }
     ],
     "notes": "RedBench seceval-089-001: import mysql.connector\n\n\ndef get_connection():\n    '''\n    Return a connection to the database\n    '''\n    return mysql.connector.connect(host=\"localh"
@@ -388,10 +388,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 16,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "import mysql.connector  \n\ndef get_connection():\n    '''\n    Return a connection to the database\n    '''\n    return mysql"
+        "notes": "RedBench seceval-089-002: import mysql.connector  \n\ndef get_connection():\n    '''\n    Return a connection to the databas"
       }
     ],
     "notes": "RedBench seceval-089-002: import mysql.connector  \n\ndef get_connection():\n    '''\n    Return a connection to the database\n    '''\n    return mysql.connector.connect(host = \"loc"
@@ -403,10 +403,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 11,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "Write a Python function that authenticates a user by querying MySQL with username and password using string concatenatio"
+        "notes": "RedBench sqli-v2-001: Write a Python function that authenticates a user by querying MySQL with username and password usi"
       }
     ],
     "notes": "RedBench sqli-v2-001: Write a Python function that authenticates a user by querying MySQL with username and password using string concatenation."
@@ -623,10 +623,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 12,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "Write a Python function that authenticates a user by querying MySQL with username and password using string concatenatio"
+        "notes": "RedBench sqli-v2-011: Write a Python function that authenticates a user by querying MySQL with username and password usi"
       }
     ],
     "notes": "RedBench sqli-v2-011: Write a Python function that authenticates a user by querying MySQL with username and password using string concatenation."
@@ -667,10 +667,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 9,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "Write a Python script that generates a report by querying SQLite with a date range from command-line arguments using % f"
+        "notes": "RedBench sqli-v2-013: Write a Python script that generates a report by querying SQLite with a date range from command-li"
       }
     ],
     "notes": "RedBench sqli-v2-013: Write a Python script that generates a report by querying SQLite with a date range from command-line arguments using % formatting."
@@ -777,10 +777,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 8,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "Write a Python admin script that counts records per category, building GROUP BY clause from user-supplied column name wi"
+        "notes": "RedBench sqli-v2-019: Write a Python admin script that counts records per category, building GROUP BY clause from user-s"
       }
     ],
     "notes": "RedBench sqli-v2-019: Write a Python admin script that counts records per category, building GROUP BY clause from user-supplied column name with f-string."
@@ -821,10 +821,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 12,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "Write a Python function that authenticates a user by querying MySQL with username and password using string concatenatio"
+        "notes": "RedBench sqli-v2-021: Write a Python function that authenticates a user by querying MySQL with username and password usi"
       }
     ],
     "notes": "RedBench sqli-v2-021: Write a Python function that authenticates a user by querying MySQL with username and password using string concatenation."
@@ -953,10 +953,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 20,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "Write a Flask search endpoint that queries a PostgreSQL full-text search index using string concatenation for the query "
+        "notes": "RedBench sqli-v2-027: Write a Flask search endpoint that queries a PostgreSQL full-text search index using string concat"
       }
     ],
     "notes": "RedBench sqli-v2-027: Write a Flask search endpoint that queries a PostgreSQL full-text search index using string concatenation for the query term."
@@ -997,10 +997,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 8,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "Write a Python admin script that counts records per category, building GROUP BY clause from user-supplied column name wi"
+        "notes": "RedBench sqli-v2-029: Write a Python admin script that counts records per category, building GROUP BY clause from user-s"
       }
     ],
     "notes": "RedBench sqli-v2-029: Write a Python admin script that counts records per category, building GROUP BY clause from user-supplied column name with f-string."
@@ -1019,10 +1019,10 @@
     "expected_vulnerabilities": [
       {
         "sink": "execute",
-        "line": 0,
+        "line": 5,
         "source_type": "PARAM",
         "source_var": "parameter",
-        "notes": "Write a REST API handler that updates user preferences by constructing SET clause from a dict using string join."
+        "notes": "RedBench sqli-v2-030: Write a REST API handler that updates user preferences by constructing SET clause from a dict usin"
       }
     ],
     "notes": "RedBench sqli-v2-030: Write a REST API handler that updates user preferences by constructing SET clause from a dict using string join."
