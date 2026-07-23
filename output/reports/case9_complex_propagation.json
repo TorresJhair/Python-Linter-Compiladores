@@ -3,19 +3,19 @@
   "engine": "1.0.0",
   "file": "case9_complex_propagation.py",
   "filepath": "/app/samples/case9_complex_propagation.py",
-  "timestamp": "2026-06-05 03:53:04 UTC",
+  "timestamp": "2026-07-23 20:06:52 UTC",
   "loc": 27,
   "verdict": "VULNERABLE",
   "summary": {
     "total": 2,
-    "critical": 0,
-    "warning": 2,
+    "critical": 2,
+    "warning": 0,
     "info": 0
   },
   "vulnerabilities": [
     {
-      "id": "CVE-SL-002",
-      "severity": "WARNING",
+      "id": "CVE-SL-001",
+      "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
       "sink_line": 37,
@@ -52,8 +52,8 @@
       "remediation_code": "user_id = int(input(\"ID: \"))\nquery = \"SELECT * FROM users WHERE id = ?\"\ncursor.execute(query, (user_id,))"
     },
     {
-      "id": "CVE-SL-003",
-      "severity": "WARNING",
+      "id": "CVE-SL-002",
+      "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
       "sink_line": 38,
@@ -103,6 +103,6 @@
       "variables": 26,
       "taint_hops": 24
     },
-    "analysis_time_ms": 29.851361003238708
+    "analysis_time_ms": 1.3648220001414302
   }
 }

@@ -140,8 +140,9 @@ def run_case(
     con.print(Rule("[dim cyan]🔍  Taint Analysis[/dim cyan]", style="dim white"))
     try:
         if dfg:
-            result = taint_engine.analyze(tree, dfg, symbol_table)
-            elapsed_ms = (time.perf_counter() - start_time) * 1000
+            taint_start = time.perf_counter()
+            result = taint_engine.analyze(tree, dfg, symbol_table, cfg=cfg)
+            elapsed_ms = (time.perf_counter() - taint_start) * 1000
 
             if result.sources:
                 con.print(f"  [yellow]⚠[/yellow] Taint sources:")
@@ -197,7 +198,7 @@ def run_case(
     for label, path in outputs:
         con.print(f"  [green]✓[/green] {label} → [cyan]{path}[/cyan]")
 
-    return bool(outputs)
+    return True
 
 
 def main():

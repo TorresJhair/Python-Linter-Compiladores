@@ -15,7 +15,6 @@ class Database:
     def execute(self, sql):
         return f"Executed: {sql}"
 
-
 db = Database()
 cursor = db.cursor()
 result = cursor.execute(query)

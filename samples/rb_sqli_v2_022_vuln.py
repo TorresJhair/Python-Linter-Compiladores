@@ -1,0 +1,3 @@
+def get_posts_by_tag(tag: str):
+    query = f"SELECT * FROM blogposts WHERE tag = '{tag}'"
+    # Execute the query and return the results...

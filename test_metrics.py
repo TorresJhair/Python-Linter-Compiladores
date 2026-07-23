@@ -165,7 +165,7 @@ def run_analysis(filepath: str) -> Tuple[Optional[str], List[Vulnerability]]:
         return None, []
 
     try:
-        result = taint_engine.analyze(tree, dfg, symbol_table)
+        result = taint_engine.analyze(tree, dfg, symbol_table, cfg=cfg)
     except Exception:
         return None, []
 

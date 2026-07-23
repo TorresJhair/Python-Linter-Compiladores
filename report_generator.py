@@ -206,13 +206,61 @@ _REMEDIATIONS: dict[str, tuple[str, str]] = {
 # Assembler
 # ──────────────────────────────────────────────────────────────────────────────
 
-def _severity(cfg: CFG) -> str:
-    """CRITICAL si no hay ramas condicionales; WARNING si el CFG tiene condiciones."""
-    has_conditions = any(
-        n.type in (CFGNodeType.CONDITION, CFGNodeType.LOOP_HEAD)
-        for n in cfg.nodes.values()
-    )
-    return "WARNING" if has_conditions else "CRITICAL"
+def _severity(cfg: CFG, sink_line: int) -> str:
+    """Per-vulnerability severity based on path reachability.
+
+    CRITICAL — the sink is reachable regardless of any condition outcome
+               (i.e., it is after the merge of every condition on the path).
+    WARNING  — the sink is only reachable through a specific branch
+               (i.e., it is inside a conditional/loop body).
+    """
+    sink_nodes = [
+        n for n in cfg.nodes.values()
+        if n.line == sink_line
+    ]
+    if not sink_nodes:
+        return "CRITICAL"
+
+    for sink in sink_nodes:
+        if _is_unconditional_sink(cfg, sink):
+            return "CRITICAL"
+    return "WARNING"
+
+
+def _path_exists(start, end, visited) -> bool:
+    """True if a directed path from start to end exists in the CFG."""
+    if start == end:
+        return True
+    visited.add(start.id)
+    for succ in start.successors:
+        if succ.id not in visited:
+            if _path_exists(succ, end, visited):
+                return True
+    return False
+
+
+def _is_unconditional_sink(cfg: CFG, sink) -> bool:
+    """True if the sink is reachable regardless of any condition outcome.
+
+    For each CONDITION/LOOP_HEAD node, the sink must be reachable from its
+    merge successor (i.e., from the path that continues after the branch).
+    If the sink is only reachable from the body branch, it is conditional.
+    """
+    for node in cfg.nodes.values():
+        if node.type not in (CFGNodeType.CONDITION, CFGNodeType.LOOP_HEAD):
+            continue
+        merge_successors = [
+            s for s in node.successors
+            if s.type == CFGNodeType.MERGE
+        ]
+        if not merge_successors:
+            continue
+        for merge in merge_successors:
+            if _path_exists(merge, sink, set()):
+                break
+        else:
+            return False
+    return True
 
 
 def _detect_mechanism(source_label: str, source_str: str) -> str:
@@ -298,8 +346,8 @@ def assemble_report(
 
     # ── Vulnerability details ─────────────────────────────────────────────────
     vuln_details: List[VulnDetail] = []
-    for i, v in enumerate(result.vulnerabilities, 2):
-        severity = _severity(cfg)
+    for i, v in enumerate(result.vulnerabilities, 1):
+        severity = _severity(cfg, v.line)
 
         src_record = next(
             (r for r in result.sources

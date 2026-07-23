@@ -3,7 +3,7 @@
   "engine": "1.0.0",
   "file": "case2_sqli_concatenation.py",
   "filepath": "/app/samples/case2_sqli_concatenation.py",
-  "timestamp": "2026-06-05 03:52:55 UTC",
+  "timestamp": "2026-07-23 20:06:37 UTC",
   "loc": 3,
   "verdict": "VULNERABLE",
   "summary": {
@@ -14,7 +14,7 @@
   },
   "vulnerabilities": [
     {
-      "id": "CVE-SL-002",
+      "id": "CVE-SL-001",
       "severity": "CRITICAL",
       "cwe": "CWE-89",
       "sink": "cursor.execute",
@@ -65,6 +65,6 @@
       "variables": 4,
       "taint_hops": 3
     },
-    "analysis_time_ms": 4.638345999410376
+    "analysis_time_ms": 0.26957499994750833
   }
 }
