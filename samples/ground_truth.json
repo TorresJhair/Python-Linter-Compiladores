@@ -1033,5 +1033,125 @@
     "expected_vulns": 0,
     "expected_vulnerabilities": [],
     "notes": "RedBench sqli-v2-030 fix: parameterized query or input validation"
+  },
+  "rb_seceval_089_0001_vuln.py": {
+    "description": "import mysql.connector\n\n\ndef get_connection():\n    '''\n    Return a connection t",
+    "expected_verdict": "VULNERABLE",
+    "expected_vulns": 1,
+    "expected_vulnerabilities": [
+      {
+        "sink": "execute",
+        "line": 16,
+        "source_type": "PARAM",
+        "source_var": "parameter",
+        "notes": "RedBench seceval-089-0001: import mysql.connector\n\n\ndef get_connection():\n    '''\n    Return a connection to the databas"
+      }
+    ],
+    "notes": "RedBench seceval-089-0001: import mysql.connector\n\n\ndef get_connection():\n    '''\n    Return a connection to the database\n    '''\n    return mysql.connector.connect(host=\"localh"
+  },
+  "rb_seceval_089_0002_vuln.py": {
+    "description": "import mysql.connector  \n\ndef get_connection():\n    '''\n    Return a connection ",
+    "expected_verdict": "VULNERABLE",
+    "expected_vulns": 1,
+    "expected_vulnerabilities": [
+      {
+        "sink": "execute",
+        "line": 16,
+        "source_type": "PARAM",
+        "source_var": "parameter",
+        "notes": "RedBench seceval-089-0002: import mysql.connector  \n\ndef get_connection():\n    '''\n    Return a connection to the databa"
+      }
+    ],
+    "notes": "RedBench seceval-089-0002: import mysql.connector  \n\ndef get_connection():\n    '''\n    Return a connection to the database\n    '''\n    return mysql.connector.connect(host = \"loc"
+  },
+  "cve_57833.py": {
+    "description": "CVE-2025-57833: Django FilteredRelation SQLi via crafted table alias",
+    "expected_verdict": "VULNERABLE",
+    "expected_vulns": 1,
+    "expected_vulnerabilities": [
+      {
+        "sink": "execute",
+        "line": 0,
+        "source_type": "PARAM",
+        "source_var": "parameter",
+        "notes": "Django FilteredRelation alias injection: user-supplied alias interpolated into raw SQL"
+      }
+    ],
+    "notes": "Django ORM FilteredRelation accepts user-supplied alias that is not sanitized, enabling SQL injection via crafted alias string."
+  },
+  "cve_64459.py": {
+    "description": "CVE-2025-64459: Django Q() SQLi via JSONField key injection",
+    "expected_verdict": "VULNERABLE",
+    "expected_vulns": 1,
+    "expected_vulnerabilities": [
+      {
+        "sink": "execute",
+        "line": 0,
+        "source_type": "PARAM",
+        "source_var": "parameter",
+        "notes": "Django Q() _connector injection: user-supplied connector interpolated into raw SQL"
+      }
+    ],
+    "notes": "Django Q() objects with crafted _connector parameter can inject arbitrary SQL through JSONField queries."
+  },
+  "cve_59681.py": {
+    "description": "CVE-2025-59681: DeepSeek prompt injection → SQLi",
+    "expected_verdict": "VULNERABLE",
+    "expected_vulns": 1,
+    "expected_vulnerabilities": [
+      {
+        "sink": "execute",
+        "line": 0,
+        "source_type": "PARAM",
+        "source_var": "parameter",
+        "notes": "Column alias injection in generated SQL via f-string"
+      }
+    ],
+    "notes": "LLM-generated SQL with user-controlled column alias enables SQL injection through crafted alias name."
+  },
+  "cve_21892.py": {
+    "description": "CVE-2026-21892: Parsl parsl-visualize SQLi via string-format",
+    "expected_verdict": "VULNERABLE",
+    "expected_vulns": 1,
+    "expected_vulnerabilities": [
+      {
+        "sink": "execute",
+        "line": 0,
+        "source_type": "PARAM",
+        "source_var": "parameter",
+        "notes": "Parsl string-format injection: user data formatted into SQL query string"
+      }
+    ],
+    "notes": "Parsl's parsl-visualize component uses Python string formatting to build SQL queries from user-supplied task names."
+  },
+  "cve_33545.py": {
+    "description": "CVE-2026-33545: MobSF SQLi via crafted APK filename",
+    "expected_verdict": "VULNERABLE",
+    "expected_vulns": 1,
+    "expected_vulnerabilities": [
+      {
+        "sink": "execute",
+        "line": 0,
+        "source_type": "PARAM",
+        "source_var": "parameter",
+        "notes": "MobSF filename injection: crafted filename embedded in SQL query"
+      }
+    ],
+    "notes": "MobSF's read_sqlite() embeds APK filenames directly into SQL queries without sanitization."
+  },
+  "cve_67644.py": {
+    "description": "CVE-2025-67644: LangGraph SQLite checkpoint SQLi via metadata filter keys",
+    "expected_verdict": "VULNERABLE",
+    "expected_vulns": 1,
+    "expected_vulnerabilities": [
+      {
+        "sink": "execute",
+        "line": 0,
+        "source_type": "PARAM",
+        "source_var": "parameter",
+        "notes": "LangGraph _metadata_predicate() filter key injection via f-string"
+      }
+    ],
+    "notes": "LangGraph interpolates metadata filter keys directly into SQL WHERE clause via f-string, allowing SQL injection."
   }
 }
